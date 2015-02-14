@@ -1,26 +1,56 @@
 var gen = require('random-seed');
 var _ = require('lodash');
+var express = require('express');
+var app = express();
 
-rand = new gen();
-var seed = rand.cleanString("rakkaus");
-
-var i=1;
-var randoms = [];
-
-while(i<8){
-
-  seed = _.shuffle(seed);
-  randoms.push(gen.create(seed));
-//rand = new gen();
+// respond with "hello world" when a GET request is made to the homepage
 
 
-  i++;
 
+var rows, randoms, i, r, rand, seed, ints;
+//ints = [];
 
-}
-rand.done();
-randoms.forEach(function(k){
+app.get('/', function(req, res) {
 
-  console.log(k.intBetween(1,39));
+  ints = [];
+
+  rand = new gen();
+  seed = rand.cleanString("rakkaus");
+
+  rows = 3;
+  r=1;
+  i=1;
+
+  //create as many rows as in the rows var;
+  while(r < rows){
+
+    randoms = [];
+
+    //create 7 ints
+    while(i<8){
+      //randomize the seed string
+      seed = _.shuffle(seed);
+
+      //push the random ints to array
+      randoms.push(gen.create(seed));
+
+      i++;
+    }
+
+    randoms.forEach(function(k){
+
+      console.log(k.intBetween(1,39));
+      randomInt = k.intBetween(1,39);
+      rand.done();
+      ints.push(randomInt);
+    });
+
+    r++;
+  }
+
+  res.send(ints);
+
 
 });
+
+app.listen(8080);
