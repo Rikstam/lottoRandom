@@ -40,6 +40,9 @@ var lottoMoottori = {
             } );
             $(this).find('input[type=text], input[type=number], textarea').val('');
             //$('#generateNumbers').removeClass('spinning');
+
+            $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+
         });
 
     }
