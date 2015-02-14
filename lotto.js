@@ -32,7 +32,7 @@ function createRandomLotteryRows(numberOfRows, seed){
     seed = rand.cleanString(seed);
 
   rows = numberOfRows;
-  r=1;
+  r=0;
 
 
   //create as many rows as in the rows var;
