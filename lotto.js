@@ -31,8 +31,8 @@ function createRandomLotteryRows(numberOfRows, seed){
     rand = new gen();
     seed = rand.cleanString(seed);
 
-  rows = numberOfRows;
-  r=0;
+    rows = numberOfRows;
+    r=0;
 
 
   //create as many rows as in the rows var;
@@ -49,13 +49,13 @@ function createRandomLotteryRows(numberOfRows, seed){
             i=1;
         while(i<8){
             //randomize the seed string
-            seed = _.shuffle(seed);
+            var shuffledSeed = _.shuffle(seed);
 
              //push the random ints to array
-            randomizer = (gen.create(seed));
+            randomizer = (gen.create(shuffledSeed));
             var randomizedInt = randomizer.intBetween(1,39);
 
-            console.log("round:" + r + " " + i + " " +  randomizedInt);
+            //console.log("round:" + r + " " + i + " " +  randomizedInt);
 
             numbers.push(randomizedInt);
 
@@ -67,6 +67,9 @@ function createRandomLotteryRows(numberOfRows, seed){
     lotteryRows.push(row);
 
     r++;
+      console.log(seed);
+      console.log(r);
+      console.log(lotteryRows);
   }
 
   return lotteryRows;

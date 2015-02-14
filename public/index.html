@@ -9,7 +9,7 @@
 
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
         <!-- Place favicon.ico in the root directory -->
-
+        <link href='http://fonts.googleapis.com/css?family=Nobile:400,700' rel='stylesheet' type='text/css'>
         <link rel="stylesheet" href="css/normalize.css">
         <link rel="stylesheet" href="css/main.css">
         <script src="js/vendor/modernizr-2.8.3.min.js"></script>
@@ -18,9 +18,28 @@
         <!--[if lt IE 8]>
             <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
         <![endif]-->
-
+        <main id = "app-content">
         <!-- Add your site or application content here -->
-        <p>Hello world! This is HTML5 Boilerplate.</p>
+       <h1>Lottonumerolaskuri</h1>
+
+
+
+        <form id = "lotteryRowsGenerator">
+            <label for="seedString">Lause, numero tai sana, jonka pohjalta haluat luoda lottorivit</label><br>
+            <input type ="text" id = "seedString" name ="seedString"><br>
+            <label for = "rows">Kuinka monta riviä luodaan ?</label> <br>
+            <input type = "number" name ="rows" id = "rows"><br>
+            <label for ="generateNumbers">Paina tästä:</label> <br>
+            <input id ="generateNumbers" type="image" src = "img/Veikkauksen_Loton_logo_2011.png">
+
+        </form>
+
+        <ul id = "numbers">
+
+
+        </ul>
+
+        </main>
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.11.2.min.js"><\/script>')</script>

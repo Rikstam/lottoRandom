@@ -94,10 +94,20 @@ textarea {
 /* ==========================================================================
    Author's custom styles
    ========================================================================== */
+body{
+    font-family: 'Nobile', sans-serif;
+}
 
+#app-content{
+    width: 320px;
+    margin:0px auto;
+    text-align: center;
+}
 
-
-
+label {
+    margin-top: 20px;
+    display: block;
+}
 
 
 
