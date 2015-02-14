@@ -41,8 +41,8 @@ var lottoMoottori = {
             } );
             $(this).find('input[type=text], input[type=number], textarea').val('');
 
-
-            $("html, body").animate({ scrollTop: $(document).height() }, "slow");
+            setTimeout(function () {
+            $("html, body").animate({ scrollTop: $(document).height() }, "slow");}, 1500);
 
         });
 
