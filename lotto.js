@@ -5,8 +5,21 @@ var app = express();
 
 var port = process.env.PORT || 8080;
 
+var router = express.Router();
 
-//ints = [];
+var bodyParser = require('body-parser');
+
+// configure app to use bodyParser()
+// this will let us get the data from a POST
+//app.use(bodyParser.urlencoded({ extended: true }));
+//app.use(bodyParser.json());
+
+// create application/json parser
+var jsonParser = bodyParser.json();
+
+// create application/x-www-form-urlencoded parser
+var urlencodedParser = bodyParser.urlencoded({ extended: false });
+
 
 
 function createRandomLotteryRows(numberOfRows, seed){
@@ -59,13 +72,45 @@ function createRandomLotteryRows(numberOfRows, seed){
   return lotteryRows;
 }
 
+router.use(function(req, res, next) {
+    // do logging
+    console.log('Something is happening.');
+    next(); // make sure we go to the next routes and don't stop here
+});
 
-app.get('/numbers', function(req, res) {
 
-  var numbs = createRandomLotteryRows(4, "möhmö");
-  res.send(numbs);
+router.get('/', function(req, res){
+    res.json({ message: 'hooray! welcome to our api!' });
+});
+
+app.use('/api', router);
+
+router.route('/numbers')
+
+    .post(urlencodedParser,function(req, res){
+
+       // var numbs = createRandomLotteryRows(req.body.rows, req.body.seedString);
+        if (!req.body) {return res.sendStatus(400);}
+
+        console.log(req.body);
+        var rows = req.body.rows;
+        var seedString = req.body.seedString;
+
+        if( rows && seedString ){
+            var numbs = createRandomLotteryRows(rows, seedString);
+            res.json(numbs);
+        }
+
+
+
+    })
+    .get(function(req, res) {
+
+    var numbs = createRandomLotteryRows(4, "möhmö");
+    res.json(numbs);
 
 });
+
 
 app.listen(port);
 console.log('Magic happens on port ' + port);
