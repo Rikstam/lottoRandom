@@ -4,30 +4,28 @@ var lottoMoottori = {
         $('#lotteryRowsGenerator').on('submit', function(e){
             e.preventDefault();
 
-           // if( $('#generateNumbers').hasClass('spinning') ){
 
-             //   $('#generateNumbers').removeClass('spinning');
-
-            //}
 
             $('#generateNumbers').toggleClass('spinning');
 
-            console.log($(this).serialize());
-            $.post("api/numbers", $(this).serialize(), function(data){
 
-                console.log(data);
-                var html =  '';
+            $.post("api/numbers", $(this).serialize(), function(data) {
+
+
+                var html = '';
 
                 $('#rivit').html('');
-                $.each(data, function(i,v){
+
+                if(data){
+                $.each(data, function (i, v) {
                     var rownumb = i + 1;
-                    html += '<h2 class = "rivinumero">Rivi <span class = "rowNumb">' + rownumb  + '</span></h2>';
+                    html += '<h2 class = "rivinumero">Rivi <span class = "rowNumb">' + rownumb + '</span></h2>';
                     html += ' <ul class = "numbers">';
 
-                    v.numbers.forEach(function(value, index){
+                    v.numbers.forEach(function (value, index) {
 
                         console.log(value);
-                        html+= '<li>' + value + '</li>';
+                        html += '<li>' + value + '</li>';
                     });
 
                     html += ' </ul>';
@@ -35,11 +33,14 @@ var lottoMoottori = {
 
                 $('#rivit').append(html);
 
-
+            }
+                else{
+                    sweetAlert("Oops...", "Something went wrong!");
+                }
 
             } );
             $(this).find('input[type=text], input[type=number], textarea').val('');
-            //$('#generateNumbers').removeClass('spinning');
+
 
             $("html, body").animate({ scrollTop: $(document).height() }, "slow");
 
@@ -51,7 +52,7 @@ var lottoMoottori = {
 
 $(document).ready(function(){
 
-   console.log("moi") ;
+
 
     lottoMoottori.init();
 

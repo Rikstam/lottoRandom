@@ -77,7 +77,7 @@ function createRandomLotteryRows(numberOfRows, seed){
 
 router.use(function(req, res, next) {
     // do logging
-    console.log('Something is happening.');
+    console.log('Something is happening.' );
     next(); // make sure we go to the next routes and don't stop here
 });
 
@@ -95,6 +95,10 @@ router.route('/numbers')
        // var numbs = createRandomLotteryRows(req.body.rows, req.body.seedString);
         if (!req.body) {return res.sendStatus(400);}
 
+        if ( Object.keys(req.body).length === 0) {
+            return res.sendStatus(400);
+        }
+
         console.log(req.body);
         var rows = req.body.rows;
         var seedString = req.body.seedString;
@@ -105,9 +109,11 @@ router.route('/numbers')
         if(seedString.length > 255) {return res.sendStatus(400);}
 
 
-        if( rows && seedString ){
+        if( rows > 0  && seedString.length > 1 ){
             var numbs = createRandomLotteryRows(rows, seedString);
             res.json(numbs);
+        } else{
+            return res.sendStatus(400);
         }
 
 
