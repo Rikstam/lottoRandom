@@ -5,59 +5,64 @@ var app = express();
 
 var port = process.env.PORT || 8080;
 
-// respond with "hello world" when a GET request is made to the homepage
 
-
-
-var rows, randoms, i, r, rand, seed, ints;
 //ints = [];
 
 
-function createRandomLotteryRows(rows, seed){
+function createRandomLotteryRows(numberOfRows, seed){
 
+  var rows, randomizer, i, r, rand, lotteryRows;
 
-  ints = [];
+  lotteryRows = [];
 
-  rand = new gen();
-  seed = rand.cleanString(seed);
+    rand = new gen();
+    seed = rand.cleanString(seed);
 
-  rows = rows;
+  rows = numberOfRows;
   r=1;
-  i=1;
+
 
   //create as many rows as in the rows var;
+
+
+
+
   while(r < rows){
 
-  randoms = [];
+    var row = {};
 
-  //create 7 ints
-    while(i<8){
-    //randomize the seed string
-      seed = _.shuffle(seed);
+    //create 7 ints
+    var numbers = [];
+            i=1;
+        while(i<8){
+            //randomize the seed string
+            seed = _.shuffle(seed);
 
-    //push the random ints to array
-      randoms.push(gen.create(seed));
-      i++;
-    }
+             //push the random ints to array
+            randomizer = (gen.create(seed));
+            var randomizedInt = randomizer.intBetween(1,39);
 
-    randoms.forEach(function(k){
+            console.log("round:" + r + " " + i + " " +  randomizedInt);
 
-      console.log(r + " " + k.intBetween(1,39));
-      randomInt = k.intBetween(1,39);
-      rand.done();
-      ints.push(randomInt);
-    });
+            numbers.push(randomizedInt);
+
+            i++;
+        }
+
+    row.numbers = numbers;
+
+    lotteryRows.push(row);
 
     r++;
   }
 
-  return ints;
+  return lotteryRows;
 }
 
 
 app.get('/numbers', function(req, res) {
 
-  var numbs = createRandomLotteryRows(3, "möhmö");
+  var numbs = createRandomLotteryRows(4, "möhmö");
   res.send(numbs);
 
 });
