@@ -99,6 +99,12 @@ router.route('/numbers')
         var rows = req.body.rows;
         var seedString = req.body.seedString;
 
+        if(rows.length > 255) {return res.sendStatus(400);}
+
+        if(rows > 20) {return res.sendStatus(400);}
+        if(seedString.length > 255) {return res.sendStatus(400);}
+
+
         if( rows && seedString ){
             var numbs = createRandomLotteryRows(rows, seedString);
             res.json(numbs);
